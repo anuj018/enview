@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlalchemy
+fastapi-utils
+pydantic
+psycopg2
+apscheduler
+typing_inspect
+python-dotenv
