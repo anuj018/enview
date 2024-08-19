@@ -70,6 +70,18 @@ def get_recent_alerts(vehicle_id: str = None):
         return alerts
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error retrieving recent alerts: {e}")
+    
+
+@app.get("/last-alert/")
+def get_last_alert(vehicle_id: str, start_time: datetime, end_time: datetime):
+    try:
+        last_alert = postgres_db.get_last_alert(vehicle_id=vehicle_id, start_time=start_time, end_time=end_time)
+        if last_alert:
+            return {"alert_id": last_alert[0]}
+        else:
+            return {"message": "No alerts found in the specified time window."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error retrieving the last alert: {e}")
 
 if __name__ == "__main__":
     import uvicorn
